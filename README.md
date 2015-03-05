@@ -12,6 +12,6 @@ Each file has a specific purpose:
 
 * **api.js**: This is the exposed API for invoking Kidozen Services from inside the custom script. **This file is not intended to be edited**.
 * **run.js**: This is another sample file which will run your custom script and will print the result on stdout. You can run it with `node run.js`. **This file is not intended to be edited**.
-* **config.json**: This file has the Tenant, application and security's configuration details.
+* **config.json.sample**: This is the config file sample. Copy this file with the name 'config.json' and complete it with the Tenant, application and security's configuration details.
 * **script.js**: Here you can write your custom script. 
 * **test.js**: This is a sample file with mocha unit tests. The code here can be executed with the `mocha` test runner
