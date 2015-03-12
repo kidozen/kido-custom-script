@@ -92,5 +92,19 @@ function Api (opts) {
             }, cb);
         }
     };
+
+    this.reject = function () {
+        var args = arguments;
+        return new Promise(function (resolve, reject) {
+            reject.apply(this, args);
+        } );
+    };
+
+    this.resolve = function () {
+        var args = arguments;
+        return new Promise(function (resolve, reject) {
+            resolve.apply(this, args);
+        } );
+    };
 }
 

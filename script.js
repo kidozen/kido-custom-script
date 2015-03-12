@@ -1,5 +1,6 @@
 
 module.exports = userCustomFunction;
+var Promise = require("es6-promise").Promise;
 
 /**
  * This function contains the custom code to execute.
@@ -10,9 +11,14 @@ module.exports = userCustomFunction;
  * @param  {object} user   A user mockup.
  * @return {object}        Returns a Promise.
  */
-function userCustomFunction(api, params, user) {
-    // Sample code which invokes the storage service for the current application
-    return api.invoke({path: "/storage/local"}).then(function (data) {
-        return { length: JSON.stringify(data).length };
-    });
+
+function userCustomFunction (api, params, user) {
+    if (!params)
+        return api.reject("missing required params");
+    if (!params.name)
+        return api.reject("missing required name parameter");
+    if (params.name.length > 25)
+        return api.reject("name is too long");
+
+    api.resolve("The name param is: " + params.name);
 }
