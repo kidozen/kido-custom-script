@@ -17,6 +17,31 @@ Each file has a specific purpose:
 * **script.js**: Here you can write your custom script. 
 * **test.js**: This is a sample file with mocha unit tests. The code here can be executed with the `mocha` test runner
 
+##Setting up
+Create a file named `config.json` (you can use the config.json.sample as a template).
+
+```javascript
+{
+    "tenant": <TENANT NAME>,
+    "clientID": <APPLICATION CLIENT ID>,
+    "clientSecret": <APPLICATION CLIENT SECRET>,
+    "app": <APPLICATION NAME>,
+    "url": <APPLICATION URL>
+}
+```
+
+For example a config file for the tenant "kidodemo" and the application "tasks" is as follows:
+
+```javascript
+{
+    "tenant": "kidodemo",
+    "clientID": "a41468c9-3e6d-4c6f-baef-b040cc024f98",
+    "clientSecret": "86BE9511AhJzCGM7w1J6m+cBeq8jH7oA2SvyWqQqFE7=",
+    "app": "tasks",
+    "url": "https://tasks-kidodemo.kidocloud.com"
+}
+```
+
 ##Sample Scripts
 
 ### Validation Sample:
