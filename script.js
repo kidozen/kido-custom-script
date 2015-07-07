@@ -20,5 +20,11 @@ function userCustomFunction (api, params, user) {
     if (params.name.length > 25)
         return api.reject("name is too long");
 
-    api.resolve("The name param is: " + params.name);
+    return api.resolve("The name param is: " + params.name);
+
+    //API invocation example
+    // return api.invoke({
+    //     method: "GET", 
+    //     path: "/api/v2/datasources/http-bin-get?name=foo&age=32"
+    // });
 }

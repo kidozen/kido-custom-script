@@ -33,7 +33,9 @@ function Api (opts) {
     this.authServiceURL = opts.authServiceURL;
     this.impersonation = !!opts.token;
     this.delegation = !!opts.user;
-    if (this.impersonation) this.token = new Promise(function (resolve, reject) { resolve({ access_token: opts.token }); });
+    if (this.impersonation) this.token = new Promise(function (resolve, reject) { 
+        resolve({ access_token: opts.token }); 
+    });
     //service account
     else this.token = getToken();
 
@@ -56,15 +58,21 @@ function Api (opts) {
             } else requestOptions.form.grant_type = "client_credentials";
 
             request.post(requestOptions, function (err, res, body) {
-                if (err) reject(err);
-                else if (res.statusCode !== 200) reject(new Error(body));
-                else resolve(JSON.parse(body));
+                if (err) {
+                    reject({"message":"Error getting auth token","error":err,"requestOptions":requestOptions});
+                }
+                else if (res.statusCode !== 200) {
+                    reject({"message":"Error getting auth token","status":res.statusCode,"error":body,"requestOptions":requestOptions});
+                }
+                else {
+                    resolve(JSON.parse(body));
+                }
             });
         });
     }
 
     this.invoke = function (opts) {
-        return self.token
+       return self.token
             .then(function (token) {
                 //TODO: if (!impersontation && tokenExpired(token)) return self.getToken();
                 return token;
@@ -73,10 +81,12 @@ function Api (opts) {
                 return new Promise(function (resolve, reject) {
                     invoke(opts, token, function (err, res, body) {
                         if (err) reject(err);
-                        else if (res.statusCode !== 200) reject(new Error(body));
+                        else if (res.statusCode !== 200) reject({"message":"API invokation error","status":res.statusCode,"error":body});
                         else resolve(body);
                     });
                 });
+            }).catch(function(err){
+                return err;
             });
 
         function invoke (opts, token, cb) {
